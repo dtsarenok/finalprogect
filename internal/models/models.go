@@ -1,6 +1,6 @@
 package models
 
-// User представляет пользователя системы
+
 type User struct {
 	ID           int64  
 	Login        string
