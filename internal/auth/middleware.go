@@ -9,9 +9,6 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-// Объявляем jwtSecret в этом пакете.
-// Лучше хранить секрет в одном месте, например, в auth.go, и импортировать сюда.
-// Для простоты объявим здесь:
 var jwtSecret = []byte("your_secret_key_here")
 
 type contextKey string
@@ -62,7 +59,6 @@ func JWTMiddleware(db *sql.DB, next http.Handler) http.Handler {
 	})
 }
 
-// UserIDFromContext извлекает userID из контекста запроса
 func UserIDFromContext(ctx context.Context) (int64, bool) {
 	userID, ok := ctx.Value(userIDKey).(int64)
 	return userID, ok
