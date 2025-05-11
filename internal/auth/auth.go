@@ -38,7 +38,7 @@ func RegisterUser(login, password string) error {
 
 	user = models.User{
 		Login:        login,
-		PasswordHash: string(hashedPassword), // Используем PasswordHash, а не Password
+		PasswordHash: string(hashedPassword)
 	}
 
 	return db.Create(&user).Error
@@ -50,7 +50,6 @@ func AuthenticateUser(login, password string) (string, error) {
 		return "", errors.New("invalid login or password")
 	}
 
-	// Используем PasswordHash для сравнения
 	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); err != nil {
 		return "", errors.New("invalid login or password")
 	}
@@ -58,7 +57,7 @@ func AuthenticateUser(login, password string) (string, error) {
 	expirationTime := time.Now().Add(24 * time.Hour)
 
 	claims := &Claims{
-		UserID: uint(user.ID), // Явное приведение типа int64 -> uint
+		UserID: uint(user.ID),
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
 		},
