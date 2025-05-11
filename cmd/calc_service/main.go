@@ -10,7 +10,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtSecret = []byte("your-secret-key") // Замените на безопасный ключ
+var jwtSecret = []byte("your-secret-key")
 
 type User struct {
 	ID           int64
